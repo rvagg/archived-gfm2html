@@ -1,0 +1,22 @@
+{
+  "name": "gfm2html",
+  "version": "0.0.0",
+  "description": "Convert a GitHub style Markdown file to HTML, complete with inline CSS",
+  "main": "gfm2html.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rvagg/gfm2html.git"
+  },
+  "homepage": "https://github.com/rvagg/gfm2html",
+  "authors": [
+    "Rod Vagg <rod@vagg.org> (https://github.com/rvagg)"
+  ],
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {
+    "brucedown": "0.0.1"
+  },
+  "bin": {
+    "gfm2html": "./bin.js"
+  }
+}
