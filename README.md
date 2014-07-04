@@ -15,6 +15,7 @@ gfm2html("*hello* _markdown_", function(e,html) {
   if(e) return console.log(e.stack)
   console.log(html)
 })
+```
 
 Install with `npm install gfm2html`, then you have  `gfm2html` function ready to use inline in your modules.
 
