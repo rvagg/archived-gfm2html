@@ -298,3 +298,15 @@ pre code, pre tt {
   color:#999;
   background-color:#EAF2F5
 }
+
+@media print {
+  .container {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .body-content {
+    border: none;
+  }
+}
