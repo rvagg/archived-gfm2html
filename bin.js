@@ -15,11 +15,10 @@ function finish(input) {
     if (err)
       throw err
 
-    if (process.argv[3] === '-') {
-      process.stdout.write(data);
-    } else {
+    if (process.argv[3] === '-')
+      process.stdout.write(data)
+    else
       fs.writeFileSync(process.argv[3], data, 'utf8')
-    }
   })
 }
 
@@ -28,13 +27,13 @@ if (process.argv.length < 4)
 
 if (process.argv[2] === '-') {
   process.stdin.on('readable', function() {
-    var chunk = process.stdin.read();
-    if (chunk !== null) input += chunk;
-  });
+    var chunk = process.stdin.read()
+    if (chunk !== null) input += chunk
+  })
 
   process.stdin.on('end', function() {
     finish(input)
-  });
+  })
 } else {
   if (!fs.existsSync(process.argv[2])) {
     console.error('File "' + process.argv[2] + '" does not exist')
