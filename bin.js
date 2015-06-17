@@ -2,8 +2,7 @@
 
 const gfm2html = require('./')
     , fs       = require('fs')
-
-var input = ''
+    , bl       = require('bl')
 
 function usageAndExit () {
   console.error('Usage: gfm2html <markdown file> <output file>')
@@ -26,14 +25,12 @@ if (process.argv.length < 4)
   return usageAndExit()
 
 if (process.argv[2] === '-') {
-  process.stdin.on('readable', function() {
-    var chunk = process.stdin.read()
-    if (chunk !== null) input += chunk
-  })
+  process.stdin.pipe(bl(function (err, input) {
+    if (err)
+      throw err
 
-  process.stdin.on('end', function() {
-    finish(input)
-  })
+    finish(input.toString())
+  }))
 } else {
   if (!fs.existsSync(process.argv[2])) {
     console.error('File "' + process.argv[2] + '" does not exist')
