@@ -14,8 +14,8 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
-    "brucedown": "~0.1.1",
-    "after": "~0.8.1"
+    "after": "~0.8.1",
+    "brucedown": "~1.1.1"
   },
   "bin": {
     "gfm2html": "./bin.js"
