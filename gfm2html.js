@@ -6,14 +6,19 @@ const fs        = require('fs')
 var template
   , style
 
-function render (html, title) {
-  return template
-    .replace('{{contents}}', html)
-    .replace('{{style}}', style)
-    .replace('{{title}}', title)
+function render (opt) {
+  return opt.template
+    .replace('{{contents}}', "<div class=\"body-content\">"+opt.html+"</div>")
+    .replace('{{style}}', "<style type=\"text/css\">"+opt.style+"</style>")
+    .replace('{{title}}', opt.title)
 }
 
-function gfm2html (markdown, callback) {
+function gfm2html (markdown, opt, callback) {
+  if(typeof opt === "function" && typeof callback !== "function") {
+    callback = opt || function() {}
+  }
+  if(typeof opt !== "object") opt = {}
+
   brucedown(markdown, function (err, html) {
     if (err)
       return callback(err)
@@ -27,20 +32,34 @@ function gfm2html (markdown, callback) {
       title = m ? m[1] : ''
     }
 
-    if (!template || !style) {
-      try {
-        template = fs.readFileSync(path.join(__dirname, 'template.html'), 'utf8')
-      } catch (e) {
-        return callback(e)
+    if(typeof opt.template == "undefined") {
+      if (!template) {
+        try {
+          template = fs.readFileSync(path.join(__dirname, 'template.html'), 'utf8')
+        } catch (e) {
+          return callback(e)
+        }
       }
-      try {
-        style = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8')
-      } catch (e) {
-        return callback(e)
+      opt.template = template
+    }
+    if(typeof opt.style == "undefined") {
+      if (!style) {
+        try {
+          style = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8')
+        } catch (e) {
+          return callback(e)
+        }
       }
+      opt.style = style
     }
 
-    callback(null, render(html, title, callback))
+    if(typeof opt.title == "undefined") {
+      opt.title = title
+    }
+
+    opt.html = html
+
+    callback(null, render(opt, callback))
   })
 }
 
