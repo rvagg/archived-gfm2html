@@ -12,7 +12,7 @@
     "Rod Vagg <rod@vagg.org> (https://github.com/rvagg)"
   ],
   "keywords": [],
-  "license": "MIT",
+  "license": "MITNFA",
   "dependencies": {
     "after": "~0.8.1",
     "brucedown": "~1.1.1"
